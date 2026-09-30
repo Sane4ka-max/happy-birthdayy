@@ -1,0 +1,456 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Для Ксюши ♡</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<audio id="backgroundMusic" loop preload="auto" aria-label="Фоновая музыка">
+  <source src="assets/music.mp3" type="audio/mpeg">
+</audio>
+<button id="musicToggle" class="music-toggle" type="button" aria-label="Включить музыку" aria-pressed="false">♫</button>
+
+<div id="countdownScreen" class="screen countdown-screen active">
+  <div class="count-ring count-ring-1"></div><div class="count-ring count-ring-2"></div><div class="count-ring count-ring-3"></div><div class="count-ring count-ring-4"></div>
+  <div class="count-core"></div><div class="count-cross count-cross-a">✦</div><div class="count-cross count-cross-b">✧</div><div class="count-cross count-cross-c">·</div>
+  <div class="aurora aurora-1"></div><div class="aurora aurora-2"></div>
+  <div class="ambient-orb orb-1"></div><div class="ambient-orb orb-2"></div><div class="ambient-orb orb-3"></div>
+  <div class="particles"></div>
+  <div class="countdown-content">
+    <div class="overline reveal">✦ специально для тебя ✦</div>
+    <h1 class="hero-serif reveal">Твой особенный<br><i>день</i></h1>
+    <p class="count-sub reveal">начинается прямо сейчас</p>
+
+    <div class="timer countdown-timer">
+      <div class="time-box time-days"><strong id="days">01</strong><span>дни</span></div>
+      <b>:</b>
+      <div class="time-box"><strong id="hours">23</strong><span>часы</span></div>
+      <b>:</b>
+      <div class="time-box"><strong id="minutes">59</strong><span>минуты</span></div>
+      <b>:</b>
+      <div class="time-box seconds-box"><strong id="seconds">59</strong><span>секунды</span></div>
+    </div>
+    <div class="count-progress"><span id="countProgress"></span></div>
+
+    <p id="countStatus" class="count-status">осталось совсем немного...</p>
+    <button id="startBtn" class="pill-btn hidden">начать ✦</button>
+  </div>
+</div>
+
+<div id="giftScreen" class="screen gift-screen">
+  <div class="gift-ring gift-ring-1"></div><div class="gift-ring gift-ring-2"></div><div class="gift-ring gift-ring-3"></div>
+  <div class="gift-aura gift-aura-a"></div><div class="gift-aura gift-aura-b"></div>
+  <div class="gift-orbit-dot gift-dot-a">✦</div><div class="gift-orbit-dot gift-dot-b">✧</div><div class="gift-orbit-dot gift-dot-c">·</div>
+  <div class="aurora aurora-1"></div><div class="aurora aurora-2"></div>
+  <div class="ambient-orb orb-1"></div><div class="ambient-orb orb-2"></div><div class="ambient-orb orb-3"></div>
+  <div class="particles"></div>
+  <div class="gift-content">
+    <div class="overline">✦ небольшой подарок для тебя ✦</div>
+    <h2>А теперь<br><i>открой его</i></h2>
+    <p class="gift-hint">нажми на подарок</p>
+    <button id="giftButton" class="gift-button" aria-label="Открыть подарок">
+      <span class="gift-lid"></span>
+      <span class="gift-body"></span>
+      <span class="gift-ribbon-v"></span>
+      <span class="gift-ribbon-h"></span>
+      <span class="bow bow-left"></span><span class="bow bow-right"></span>
+      <span class="gift-spark s1">✦</span><span class="gift-spark s2">✧</span><span class="gift-spark s3">·</span>
+    </button>
+    <p class="gift-bottom">там кое-что очень важное ♡</p>
+  </div>
+</div>
+
+<div id="mainScreen" class="screen main-screen">
+  <header class="topbar">
+    <div class="logo">для Ксюши <span>♡</span></div>
+    <div class="progress"><span id="progressBar"></span></div>
+    <button id="menuBtn" class="menu-btn">☰</button>
+  </header>
+
+  <nav id="nav">
+    <button data-go="0">Главная</button>
+    <button data-go="1">Поздравление</button>
+    <button data-go="2">Воспоминания</button>
+    <button data-go="3">От друзей</button>
+    <button data-go="3">Для тебя</button>
+  </nav>
+
+  <canvas id="wowCanvas" aria-hidden="true"></canvas>
+    <div id="cursorGlow" aria-hidden="true"></div>
+    <div id="pages">
+    <section class="page page-hero">
+      <div class="hero-aura hero-aura-a"></div><div class="hero-aura hero-aura-b"></div>
+      <div class="hero-ring hero-ring-a"></div><div class="hero-ring hero-ring-b"></div><div class="hero-ring hero-ring-c"></div>
+      <div class="hero-cross hero-cross-a">✦</div><div class="hero-cross hero-cross-b">✧</div><div class="hero-cross hero-cross-c">·</div>
+      <div class="hero-word" aria-hidden="true">КСЮША</div>
+      <div class="hero-topline"><span>PERSONAL EDITION</span><span>01 / 05</span></div>
+      <div class="content center hero-content">
+        <div class="hero-card-glow"></div>
+        <div class="overline">✦ сегодня твой день ✦</div>
+        <div class="hero-kicker">A LITTLE WORLD MADE FOR YOU</div>
+        <h2 class="typing-title" data-text="С днём рождения, Ксюша!"></h2>
+        <p class="typed-paragraph" data-text="Этот маленький мир здесь только для тебя — чтобы напомнить, какая ты замечательная и сколько людей тебя любят."></p>
+        <div class="hero-rule"><span></span><i>♡</i><span></span></div>
+        <button class="next-btn hero-next" data-next>продолжить <span>→</span></button>
+      </div>
+      <div class="hero-bottomline"><span>FOR KSUSHA</span><span>KEEP THIS MOMENT</span><span>♡ 2026</span></div>
+    </section>
+
+    <section class="page scene-letter">
+      <div class="scene-orbit orbit-a"></div><div class="scene-orbit orbit-b"></div><div class="scene-spark spark-a">✦</div><div class="scene-spark spark-b">✧</div>
+      <div class="content letter-layout">
+        <div class="page-number">01</div>
+        <div>
+          <div class="overline">✦ немного важных слов ✦</div>
+              <h2 class="typing-title" data-text="Сегодня всё о тебе."></h2>
+          <div class="letter">
+            <p class="typed-paragraph" data-text="Ксюша,"></p>
+            <p class="typed-paragraph" data-text="с днём рождения тебя."></p>
+            <p class="typed-paragraph" data-text="Я долго думал, что именно написать сюда, потому что хотелось сделать что-то нормальное, а не просто кинуть тебе сообщение из трёх слов."></p>
+            <p class="typed-paragraph" data-text="Поэтому в итоге появился этот сайт."></p>
+            <p class="typed-paragraph" data-text="Не знаю, насколько это вообще было хорошей идеей, но мне хотелось собрать здесь несколько вещей, которые связаны с тобой: фотографии, воспоминания и пожелания от людей, которые тебя знают."></p>
+            <p class="typed-paragraph" data-text="От себя хочу пожелать тебе самого простого — чтобы следующий год твоей жизни был лучше предыдущего."></p>
+            <p class="typed-paragraph" data-text="Чтобы у тебя было больше моментов, которыми ты действительно будешь довольна. Больше людей рядом, с которыми можно быть собой. Больше вещей, которые хочется вспоминать."></p>
+            <p class="typed-paragraph" data-text="И чтобы, несмотря на всякую ерунду, которая иногда происходит, у тебя всегда оставалось ощущение, что всё в итоге идёт туда, куда нужно."></p>
+            <p class="typed-paragraph" data-text="А остальное я, пожалуй, оставлю здесь."></p>
+            <div class="signature typing-signature" data-text="С днём рождения 🤗🎉"></div>
+          </div>
+        </div>
+      </div>
+      <button class="next-btn bottom-btn" data-next>дальше <span>→</span></button>
+    </section>
+
+    <section class="page scene-memories">
+      <div class="scene-orbit orbit-c"></div><div class="scene-orbit orbit-d"></div><div class="scene-spark spark-c">✦</div>
+      <div class="content wide">
+        <div class="page-number">02</div>
+        <div class="overline">✦ архив маленьких историй ✦</div>
+        <h2 class="typing-title" data-text="Моменты, которые остаются"></h2>
+        <p class="page-intro typed-paragraph" data-text="Не просто фотографии. Несколько мгновений, которые хочется оставить здесь навсегда."></p>
+        <div class="memory-cinema">
+          <div class="memory-cinema-line"></div>
+          <div class="memory-cinema-head"><span>MEMORY ARCHIVE</span><b>КСЮША · 2026</b></div>
+          <div id="photos" class="photos"></div>
+          <div class="memory-cinema-foot"><span>06 кадров</span><span>листай · смотри · вспоминай</span><span>♡</span></div>
+        </div>
+      </div>
+      <button class="next-btn bottom-btn" data-next>дальше <span>→</span></button>
+    </section>
+
+    <section class="page scene-friends">
+      <div class="scene-orbit orbit-a"></div><div class="scene-orbit orbit-b"></div><div class="scene-orbit orbit-c"></div><div class="scene-orbit orbit-d"></div>
+      <div class="friends-backdrop"></div><div class="scene-spark spark-d">✦</div><div class="scene-spark spark-e">✧</div>
+      <div class="content wide">
+        <div class="page-number">03</div>
+        <div class="overline">✦ от самых близких ✦</div>
+        <h2 class="typing-title" data-text="Слова для Ксюши"></h2>
+        <p class="page-intro typed-paragraph" data-text="Три человека. Три маленькие истории. И три тёплых слова именно для тебя."></p>
+        <div id="friends" class="friends"></div>
+      </div>
+      <button class="next-btn bottom-btn" data-next>дальше <span>→</span></button>
+    </section>
+
+    <section class="page final-page">
+      <div class="final-orbit final-orbit-a"></div>
+      <div class="final-orbit final-orbit-b"></div>
+      <div class="final-orbit final-orbit-c"></div>
+      <div class="final-orbit final-orbit-d"></div>
+      <div class="final-orbit final-orbit-e"></div>
+      <div class="final-aura final-aura-a"></div>
+      <div class="final-aura final-aura-b"></div>
+      <div class="final-nebula final-nebula-a"></div>
+      <div class="final-nebula final-nebula-b"></div>
+      <div class="final-glow"></div>
+      <div class="final-rays"></div>
+      <div class="final-core"></div>
+      <div class="final-ring-light final-ring-light-a"></div>
+      <div class="final-ring-light final-ring-light-b"></div>
+      <div class="final-ring-light final-ring-light-c"></div>
+      <div class="final-starburst"></div>
+      <div class="final-word-back" aria-hidden="true">КСЮША</div>
+      <div class="final-corner final-corner-tl">01 / 05<br><span>FOR KSUSHA</span></div>
+      <div class="final-corner final-corner-tr">PERSONAL<br><span>EDITION</span></div>
+      <div class="final-corner final-corner-bl">MADE FOR YOU<br><span>JUST FOR YOU</span></div>
+      <div class="final-corner final-corner-br">2026<br><span>KEEP THIS MOMENT</span></div>
+      <div id="finalParticles" class="final-particles"></div>
+      <div id="finalFireworks" class="final-fireworks" aria-hidden="true"></div>
+
+      <div class="content center final-content">
+        <div class="overline final-overline">✦ и последнее ✦</div>
+
+        <div class="final-prelude">Ну и последнее...</div>
+
+        <div class="final-main">
+          <div class="final-label">СЕГОДНЯ ТВОЙ ДЕНЬ</div>
+          <h2 class="final-title">С днём рождения,<br><i>Ксюша!</i></h2>
+
+          <div class="final-divider"></div>
+
+          <p class="final-message">
+            Пусть этот год будет твоим.
+          </p>
+
+          <p class="final-small">
+            Больше приключений. Больше искреннего смеха.<br>
+            Больше моментов, которые захочется запомнить.
+          </p>
+        </div>
+
+        <button id="restartBtn" class="next-btn final-restart">посмотреть ещё раз <span>↻</span></button>
+      </div>
+    </section>
+  </div>
+</div>
+
+<script src="script.js"></script>
+
+<style>
+/* ===== FINAL SCENE ===== */
+.final-page {
+  overflow: hidden !important;
+  background:
+    radial-gradient(circle at 50% 45%, rgba(177, 116, 255, .13), transparent 30%),
+    radial-gradient(circle at 50% 80%, rgba(255, 92, 138, .09), transparent 38%);
+}
+
+.final-page .final-glow {
+  position: absolute;
+  width: min(62vw, 720px);
+  height: min(62vw, 720px);
+  left: 50%;
+  top: 48%;
+  transform: translate(-50%, -50%) scale(.7);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(213, 151, 255, .18) 0%, rgba(255, 92, 138, .07) 35%, transparent 70%);
+  filter: blur(8px);
+  opacity: 0;
+  transition: opacity 1.2s ease, transform 1.8s cubic-bezier(.2,.8,.2,1);
+  pointer-events: none;
+}
+
+.final-page .final-rays {
+  position: absolute;
+  width: 120vmax;
+  height: 120vmax;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%) scale(.5);
+  background: repeating-conic-gradient(
+    from 0deg,
+    rgba(255,255,255,.025) 0deg 1deg,
+    transparent 1deg 12deg
+  );
+  mask-image: radial-gradient(circle, black 0%, transparent 58%);
+  opacity: 0;
+  transition: opacity 1.5s ease, transform 3s ease;
+  pointer-events: none;
+}
+
+.final-page.active .final-glow {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.final-page.active .final-rays {
+  opacity: .7;
+  transform: translate(-50%, -50%) scale(1);
+  animation: finalRotate 35s linear infinite;
+}
+
+@keyframes finalRotate {
+  to { transform: translate(-50%, -50%) scale(1) rotate(360deg); }
+}
+
+.final-content {
+  position: relative;
+  z-index: 4;
+}
+
+.final-overline {
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity .7s ease .15s, transform .7s ease .15s;
+}
+
+.final-prelude {
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(28px, 5vw, 48px);
+  font-style: italic;
+  color: rgba(255,255,255,.78);
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity .8s ease .65s, transform .8s ease .65s;
+}
+
+.final-main {
+  margin-top: 22px;
+  opacity: 0;
+  transform: translateY(35px) scale(.97);
+  transition: opacity 1s ease 1.7s, transform 1s cubic-bezier(.2,.8,.2,1) 1.7s;
+}
+
+.final-label {
+  font-family: Montserrat, sans-serif;
+  font-size: 10px;
+  letter-spacing: .28em;
+  color: rgba(255,255,255,.48);
+  margin-bottom: 18px;
+}
+
+.final-title {
+  margin: 0;
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(55px, 10vw, 112px);
+  line-height: .82;
+  letter-spacing: -.055em;
+  text-shadow: 0 0 60px rgba(255, 174, 220, .12);
+}
+
+.final-title i {
+  color: #f0c7ff;
+}
+
+.final-divider {
+  width: 0;
+  height: 1px;
+  margin: 30px auto 24px;
+  background: rgba(255,255,255,.28);
+  transition: width 1s ease 2.65s;
+}
+
+.final-message {
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(27px, 4vw, 42px);
+  margin: 0 0 12px;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity .8s ease 2.8s, transform .8s ease 2.8s;
+}
+
+.final-small {
+  font-family: Montserrat, sans-serif;
+  font-size: 12px;
+  line-height: 1.9;
+  letter-spacing: .035em;
+  color: rgba(255,255,255,.54);
+  margin: 0;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity .8s ease 3.1s, transform .8s ease 3.1s;
+}
+
+.final-restart {
+  margin-top: 34px;
+  opacity: 0;
+  transition: opacity .8s ease 4.2s, transform .2s ease;
+}
+
+.final-page.active .final-overline,
+.final-page.active .final-prelude,
+.final-page.active .final-main,
+.final-page.active .final-message,
+.final-page.active .final-small,
+.final-page.active .final-restart {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.final-page.active .final-divider {
+  width: min(180px, 35vw);
+}
+
+.final-particles {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.final-confetti {
+  position: absolute;
+  top: 48%;
+  left: 50%;
+  width: 5px;
+  height: 12px;
+  border-radius: 2px;
+  opacity: 0;
+  animation: finalConfetti 2.8s cubic-bezier(.12,.75,.22,1) forwards;
+}
+
+@keyframes finalConfetti {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) rotate(0deg) scale(.3);
+  }
+  8% { opacity: 1; }
+  100% {
+    opacity: 0;
+    transform:
+      translate(calc(-50% + var(--x)), calc(-50% + var(--y)))
+      rotate(var(--r)) scale(1);
+  }
+}
+
+@media (max-width: 600px) {
+  .final-small br { display: none; }
+  .final-title { font-size: clamp(50px, 15vw, 78px); }
+  .final-main { margin-top: 18px; }
+  .final-divider { margin-top: 24px; margin-bottom: 20px; }
+}
+</style>
+
+<script>
+(function () {
+  const finalPage = document.querySelector(".final-page");
+  const particleBox = document.getElementById("finalParticles");
+  if (!finalPage || !particleBox) return;
+
+  let launched = false;
+
+  function launchConfetti() {
+    if (launched) return;
+    launched = true;
+
+    const pieces = 95;
+
+    for (let i = 0; i < pieces; i++) {
+      const piece = document.createElement("span");
+      piece.className = "final-confetti";
+
+      const angle = (Math.random() * Math.PI * 2);
+      const distance = 160 + Math.random() * 520;
+
+      piece.style.setProperty("--x", `${Math.cos(angle) * distance}px`);
+      piece.style.setProperty("--y", `${Math.sin(angle) * distance}px`);
+      piece.style.setProperty("--r", `${Math.random() * 900 - 450}deg`);
+      piece.style.animationDelay = `${Math.random() * .35}s`;
+      piece.style.width = `${3 + Math.random() * 5}px`;
+      piece.style.height = `${6 + Math.random() * 10}px`;
+
+      particleBox.appendChild(piece);
+      setTimeout(() => piece.remove(), 3400);
+    }
+  }
+
+  const observer = new MutationObserver(() => {
+    if (finalPage.classList.contains("active")) {
+      launched = false;
+      setTimeout(launchConfetti, 1750);
+    } else {
+      launched = false;
+      particleBox.innerHTML = "";
+    }
+  });
+
+  observer.observe(finalPage, { attributes: true, attributeFilter: ["class"] });
+})();
+</script>
+
+</body>
+</html>
